@@ -30,7 +30,7 @@ pipeline{
                 message "Select the version"
                 ok "Version selected "
                 parameters{
-                    choice{name:"NEW_VERSION",choices[3,4,5]}
+                    choice{name:'NEW_VERSION',choices['3','4','5']}
                 }
             }
             steps{
