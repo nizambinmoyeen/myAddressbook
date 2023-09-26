@@ -1,5 +1,6 @@
 pipeline{   
-    agent any
+    agent none
+
     tools{
         jdk 'myjava'
         maven 'mymaven'
@@ -11,6 +12,7 @@ pipeline{
     }
     stages{
         stage('Compile'){
+            agent any
             steps{
                 script{
                     echo "Compile the code for the Application${params.ENV}"
@@ -19,6 +21,7 @@ pipeline{
             }
         }
         stage('UnitTest'){
+            agent any
             when{
                 expression{
                     params.executeTest == true
@@ -27,19 +30,22 @@ pipeline{
             steps{
                 script{
                     echo "Run the Unit test  cases"
+                    sh "mvn test"
                 }
             }
         }
         stage('Package'){
-            
+            agent {label:'linux_slave'}
             steps{
                 script{
                     echo "Package the code"
                     echo "Packaging the code version ${params.APPVERSION}"
+                    sh "mvn package"
                 }
             }
         }
         stage('Deploy'){
+            agent any
             input{
                 message "Select the version of the package"
                 ok "Version selected "
