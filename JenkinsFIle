@@ -1,4 +1,4 @@
-pipeline{
+pipeline{  
     agent any
     parameters{
         string(name:'ENV',defaultValue:"Test",description:"This is sample application")
