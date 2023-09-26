@@ -15,7 +15,7 @@ pipeline{
         }
         stage('UnitTest'){
             when{
-                expresssion{
+                expression{
                     params.executeTest == true
                 }
             }
