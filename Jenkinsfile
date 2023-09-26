@@ -1,5 +1,9 @@
 pipeline{   
     agent any
+    tools{
+        jdk 'myjava'
+        maven 'mymaven'
+    }
     parameters{
         string(name:'ENV',defaultValue:"Test",description:"This is sample application")
         booleanParam(name: 'executeTest', defaultValue: true, description: 'Decide to run test')
@@ -10,6 +14,7 @@ pipeline{
             steps{
                 script{
                     echo "Compile the code for the Application${params.ENV}"
+                    sh "mvn compile"
                 }
             }
         }
