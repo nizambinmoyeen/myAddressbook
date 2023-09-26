@@ -36,10 +36,10 @@ pipeline{
         }
         stage('Deploy'){
             input{
-                message "Select the version"
+                message "Select the version of the package"
                 ok "Version selected "
                 parameters{
-                    choice(name:'NEWVERSION',choices['3','4','5'])
+                    choice(name:'NEWVERSION',choices:['3','4','5'])
                 }
             }
             steps{
