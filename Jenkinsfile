@@ -33,6 +33,11 @@ pipeline{
                     sh "mvn test"
                 }
             }
+            post{
+                always{
+                    junit 'target/surefire/*.xml'
+                }
+            }
         }
         stage('Package'){
             agent {label 'linux_slave'}
