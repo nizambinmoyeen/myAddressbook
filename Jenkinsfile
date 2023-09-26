@@ -9,7 +9,7 @@ pipeline{
         stage('Compile'){
             steps{
                 script{
-                    echo "Compile the code"
+                    echo "Compile the code for the Application${params.ENV}"
                 }
             }
         }
@@ -26,17 +26,26 @@ pipeline{
             }
         }
         stage('Package'){
-            input{
-                message "Select the version"
-                ok "Version selected "
-                parameters{
-                    choice{name:'NEW_VERSION',choices['3','4','5']}
-                }
-            }
+            
             steps{
                 script{
                     echo "Package the code"
                     echo "Packaging the code version ${params.APPVERSION}"
+                }
+            }
+        }
+        stage('Deploy'){
+            input{
+                message "Select the version"
+                ok "Version selected "
+                parameters{
+                    choice(name:'NEW_VERSION',choices['3','4','5'])
+                }
+            }
+            steps{
+                script{
+                    echo "Deploying the packaged code"
+                    echo "Deploying code version ${params.NEWVERSION}"
                 }
             }
         }
